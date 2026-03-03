@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator — Check Your Body Mass Index for Adults & Children</title>
+<meta name="description" content="Free BMI calculator for adults and children (ages 2–19). Get your BMI, category, BMI Prime, Ponderal Index, and CDC percentile for kids. Based on WHO, NHS, and CDC guidelines.">
+<meta name="keywords" content="BMI calculator, body mass index, BMI for children, BMI percentile, healthy weight, overweight, obesity, NHS BMI, CDC growth charts">
+<meta name="author" content="BMI Calculator">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0d9488">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="/">
+<meta property="og:title" content="BMI Calculator — Adults & Children">
+<meta property="og:description" content="Calculate your Body Mass Index instantly. Supports adults and children ages 2–19 with CDC percentile charts. Free, private, no sign-up required.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="BMI Calculator">
+<meta property="og:image" content="/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BMI Calculator — free Body Mass Index tool for adults and children">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BMI Calculator — Adults & Children">
+<meta name="twitter:description" content="Calculate your Body Mass Index instantly. Supports adults and children ages 2–19 with CDC percentile charts.">
+<meta name="twitter:image" content="/og-image.png">
+<meta name="twitter:image:alt" content="BMI Calculator — free Body Mass Index tool for adults and children">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "BMI Calculator",
+  "description": "Free Body Mass Index calculator for adults and children. Provides BMI, category, BMI Prime, Ponderal Index, healthy weight range, and CDC percentiles for ages 2–19.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "about": {
+    "@type": "MedicalCondition",
+    "name": "Obesity",
+    "associatedAnatomy": { "@type": "AnatomicalStructure", "name": "Body" }
+  }
+}
+</script>
+<style>
+:root {
+  --uw:  #60a5fa;
+  --nm:  #34d399;
+  --ow:  #fbbf24;
+  --ob1: #f97316;
+  --ob2: #ef4444;
+  --bg:     #f0f9f8;
+  --card:   #ffffff;
+  --text:   #1e293b;
+  --muted:  #64748b;
+  --border: #d5e5e3;
+  --accent: #0d9488;
+  --accent2:#14b8a6;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+  background: linear-gradient(135deg, #0d9488 0%, #0e7490 100%);
+  color: #fff;
+  padding: 2.5rem 1rem 3.5rem;
+  text-align: center;
+}
+header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; }
+header p  { margin-top: .4rem; opacity: .8; font-size: .95rem; }
+
+/* ── Main container ── */
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  transform: translateY(-2rem);
+}
+
+/* ── Card ── */
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 1.6rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.07);
+  margin-bottom: 1.25rem;
+}
+.card-label {
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 1.1rem;
+}
+
+/* ── Unit toggle ── */
+.toggle-pill {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 50px;
+  padding: 3px;
+  margin-bottom: 1.4rem;
+}
+.toggle-pill button {
+  padding: .45rem 1.3rem;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+}
+.toggle-pill button.active {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 1px 4px rgba(13,148,136,.18);
+}
+
+/* ── Form grid ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+
+.fg { display: flex; flex-direction: column; gap: .45rem; }
+.fg label { font-size: .8rem; font-weight: 600; color: var(--muted); }
+
+.fg input {
+  padding: .72rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+.fg input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(13,148,136,.12);
+}
+
+.height-row { display: flex; gap: .5rem; }
+.height-row input { flex: 1; }
+
+/* ── Gender buttons ── */
+.gender-row { display: flex; gap: .5rem; }
+.gender-btn {
+  flex: 1;
+  padding: .72rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  font-family: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+}
+.gender-btn.active { border-color: var(--accent); color: var(--accent); background: #f0fdfa; }
+
+/* ── Calc button ── */
+.calc-btn {
+  width: 100%;
+  margin-top: 1.2rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #0d9488, #0e7490);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .01em;
+  transition: opacity .2s, transform .15s;
+}
+.calc-btn:hover  { opacity: .9; }
+.calc-btn:active { transform: scale(.99); }
+
+/* ── Results grid ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+@media (max-width: 520px) { .results-grid { grid-template-columns: 1fr; } }
+
+/* ── Gauge ── */
+.gauge-wrap { text-align: center; }
+.chart-svg  { width: 100%; max-width: 280px; height: auto; display: block; margin: 0 auto; }
+#chart-marker, #chart-marker-child { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; opacity: 0; }
+
+/* ── Metrics ── */
+.metrics { display: flex; flex-direction: column; gap: .75rem; justify-content: center; }
+.metric {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: .85rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.metric-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.metric-val   { font-size: 1.05rem; font-weight: 700; }
+
+/* ── Insight banner ── */
+.insight {
+  margin-top: 1rem;
+  padding: .9rem 1.1rem;
+  border-radius: 12px;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  display: none;
+}
+
+/* ── Scale bar ── */
+.scale-bar-outer {
+  position: relative;
+  padding-bottom: 1.4rem;
+}
+.scale-bar {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(to right,
+    #60a5fa 0% 14%,
+    #34d399 14% 40%,
+    #fbbf24 40% 60%,
+    #f97316 60% 80%,
+    #ef4444 80% 100%
+  );
+  position: relative;
+}
+.scale-pin {
+  position: absolute;
+  top: -5px;
+  width: 6px;
+  height: 24px;
+  background: #1e293b;
+  border-radius: 3px;
+  transform: translateX(-50%);
+  transition: left .5s cubic-bezier(.34,1.56,.64,1);
+  display: none;
+}
+.scale-pin::before {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .2rem .5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.scale-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: .4rem;
+  font-size: .7rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+.scale-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1rem;
+}
+.legend-item { display: flex; align-items: center; gap: .35rem; font-size: .75rem; color: var(--muted); }
+.legend-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── NHS note ── */
+.nhs-note {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0 10px 10px 0;
+  padding: .9rem 1.1rem;
+  font-size: .82rem;
+  color: #1e40af;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  display: none;
+}
+
+/* ── Accordion ── */
+.acc-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: .6rem;
+}
+.acc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 500;
+  background: #fff;
+  transition: background .15s;
+  user-select: none;
+}
+.acc-head:hover { background: #f8fafc; }
+.acc-arrow { font-size: .8rem; color: var(--muted); transition: transform .3s; }
+.acc-item.open .acc-arrow { transform: rotate(180deg); }
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+  background: #f8fafc;
+  border-top: 1px solid var(--border);
+  font-size: .875rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.acc-item.open .acc-body { max-height: 900px; }
+.acc-inner { padding: 1rem 1.2rem; }
+
+/* ── BMI table ── */
+.bmi-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.bmi-table th, .bmi-table td { padding: .5rem .7rem; text-align: left; border-bottom: 1px solid var(--border); }
+.bmi-table th { font-weight: 600; color: var(--text); background: #f8fafc; }
+.bmi-table tr:last-child td { border-bottom: none; }
+.dot-inline { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: .4rem; vertical-align: middle; }
+
+/* ── Risk tags ── */
+.risk-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .7rem; }
+.rtag {
+  padding: .28rem .75rem;
+  border-radius: 20px;
+  font-size: .75rem;
+  font-weight: 500;
+}
+.rtag.red    { background: #fee2e2; color: #991b1b; }
+.rtag.orange { background: #ffedd5; color: #9a3412; }
+
+/* ── Limitations list ── */
+.lim-list { display: flex; flex-direction: column; gap: .6rem; margin-top: .6rem; padding-left: 1.1rem; }
+.lim-list li { font-size: .875rem; }
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--muted);
+  font-size: .78rem;
+  border-top: 1px solid var(--border);
+  line-height: 1.7;
+}
+
+/* ── Animate in ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-in { animation: fadeUp .4s ease both; }
+
+/* ── Hidden ── */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>BMI Calculator</h1>
+  <p>Understand your body mass index and what it means for your health</p>
+</header>
+
+<main>
+
+  <!-- ── Intro Card ── -->
+  <div class="card anim-in" style="line-height:1.7; color:var(--muted); font-size:.9rem">
+    <h2 class="card-label">What is BMI?</h2>
+    <p><strong style="color:var(--text)">Body Mass Index (BMI)</strong> is a simple numerical measure that uses your height and weight to estimate whether your body weight falls within a healthy range. It is widely used by healthcare professionals, including the NHS, WHO, and CDC, as a quick screening tool for potential weight-related health risks.</p>
+    <p style="margin-top:.7rem">While BMI does not directly measure body fat, it correlates well enough with more precise methods to serve as a useful starting point. A healthy BMI generally falls between <strong style="color:var(--text)">18.5 and 24.9</strong>. Values outside this range may indicate increased risk for conditions such as heart disease, diabetes, and other chronic illnesses.</p>
+    <p style="margin-top:.7rem">Enter your details below to calculate your BMI and learn what your result means.</p>
+  </div>
+
+  <!-- ── Input Card ── -->
+  <div class="card anim-in">
+    <div class="toggle-pill">
+      <button id="btn-imperial" class="active" onclick="setUnit('imperial')">Imperial</button>
+      <button id="btn-metric"            onclick="setUnit('metric')">Metric</button>
+    </div>
+
+    <div class="form-grid">
+      <!-- Age -->
+      <div class="fg">
+        <label for="inp-age">Age (years)</label>
+        <input id="inp-age" type="number" placeholder="e.g. 30" min="2" max="120">
+      </div>
+
+      <!-- Gender -->
+      <div class="fg">
+        <label>Sex</label>
+        <div class="gender-row">
+          <button class="gender-btn active" id="btn-male"   onclick="setGender('male')">&#9794; Male</button>
+          <button class="gender-btn"        id="btn-female" onclick="setGender('female')">&#9792; Female</button>
+        </div>
+      </div>
+
+      <!-- Height -->
+      <div class="fg">
+        <label id="lbl-height">Height</label>
+        <div class="height-row" id="height-imperial">
+          <input id="inp-ft" type="number" placeholder="ft" min="1" max="9">
+          <input id="inp-in" type="number" placeholder="in" min="0" max="11" step="0.1">
+        </div>
+        <input id="inp-cm" type="number" placeholder="cm" min="50" max="300" style="display:none">
+      </div>
+
+      <!-- Weight -->
+      <div class="fg">
+        <label id="lbl-weight">Weight (lbs)</label>
+        <input id="inp-weight" type="number" placeholder="e.g. 154" min="1">
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">Calculate BMI &rarr;</button>
+  </div>
+
+  <!-- ── Results ── -->
+  <div id="results-wrap" class="hidden">
+
+    <div class="results-grid">
+
+      <!-- Bar Chart -->
+      <div class="card gauge-wrap">
+        <div class="card-label" id="chart-label">BMI Chart</div>
+
+        <!-- Adult BMI chart -->
+        <svg id="chart-svg" class="chart-svg" viewBox="0 0 200 260" aria-hidden="true" style="overflow:hidden">
+          <defs>
+            <clipPath id="bar-clip">
+              <rect x="50" y="8" width="52" height="234" rx="8" ry="8"/>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#bar-clip)">
+            <rect x="50" y="8"     width="52" height="33.4" fill="#991b1b"/>
+            <rect x="50" y="41.4"  width="52" height="33.4" fill="#ef4444"/>
+            <rect x="50" y="74.8"  width="52" height="33.4" fill="#f97316"/>
+            <rect x="50" y="108.2" width="52" height="33.4" fill="#fbbf24"/>
+            <rect x="50" y="141.6" width="52" height="43.5" fill="#34d399"/>
+            <rect x="50" y="185.1" width="52" height="56.9" fill="#60a5fa"/>
+            <line x1="50" y1="41.4"  x2="102" y2="41.4"  stroke="#fff" stroke-width="2"/>
+            <line x1="50" y1="74.8"  x2="102" y2="74.8"  stroke="#fff" stroke-width="2"/>
+            <line x1="50" y1="108.2" x2="102" y2="108.2" stroke="#fff" stroke-width="2"/>
+            <line x1="50" y1="141.6" x2="102" y2="141.6" stroke="#fff" stroke-width="2"/>
+            <line x1="50" y1="185.1" x2="102" y2="185.1" stroke="#fff" stroke-width="2"/>
+          </g>
+          <text x="44" y="13"  text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">45</text>
+          <text x="44" y="46"  text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">40</text>
+          <text x="44" y="80"  text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">35</text>
+          <text x="44" y="113" text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">30</text>
+          <text x="44" y="147" text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">25</text>
+          <text x="44" y="190" text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">18.5</text>
+          <text x="44" y="247" text-anchor="end" font-size="12" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">10</text>
+          <g id="chart-marker">
+            <polygon points="110,0 122,-7 122,7" fill="#1e293b"/>
+            <text id="m-bmi" x="126" y="5" font-size="13" font-weight="700" fill="#1e293b" font-family="Inter,system-ui,sans-serif"></text>
+          </g>
+        </svg>
+
+        <!-- Child percentile chart (hidden by default) -->
+        <svg id="chart-svg-child" class="chart-svg" viewBox="0 0 200 260" aria-hidden="true" style="overflow:hidden; display:none">
+          <defs>
+            <clipPath id="bar-clip-child">
+              <rect x="50" y="8" width="52" height="234" rx="8" ry="8"/>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#bar-clip-child)">
+            <rect x="50" y="8"     width="52" height="11.7" fill="#ef4444"/>
+            <rect x="50" y="19.7"  width="52" height="23.4" fill="#fbbf24"/>
+            <rect x="50" y="43.1"  width="52" height="187.2" fill="#34d399"/>
+            <rect x="50" y="230.3" width="52" height="11.7" fill="#60a5fa"/>
+            <line x1="50" y1="19.7"  x2="102" y2="19.7"  stroke="#fff" stroke-width="2"/>
+            <line x1="50" y1="43.1"  x2="102" y2="43.1"  stroke="#fff" stroke-width="2"/>
+            <line x1="50" y1="230.3" x2="102" y2="230.3" stroke="#fff" stroke-width="2"/>
+          </g>
+          <text x="44" y="24"  text-anchor="end" font-size="11" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">95th</text>
+          <text x="44" y="48"  text-anchor="end" font-size="11" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">85th</text>
+          <text x="44" y="130" text-anchor="end" font-size="11" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">50th</text>
+          <text x="44" y="235" text-anchor="end" font-size="11" fill="#94a3b8" font-family="Inter,system-ui,sans-serif">5th</text>
+          <g id="chart-marker-child">
+            <polygon points="110,0 122,-7 122,7" fill="#1e293b"/>
+            <text id="m-pct" x="126" y="5" font-size="13" font-weight="700" fill="#1e293b" font-family="Inter,system-ui,sans-serif"></text>
+          </g>
+        </svg>
+
+        <!-- Adult legend -->
+        <div class="scale-legend" id="legend-adult" style="justify-content:center">
+          <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>Underweight</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Healthy</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Overweight</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Obese</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#991b1b"></div>Obese III+</div>
+        </div>
+        <!-- Child legend (hidden by default) -->
+        <div class="scale-legend hidden" id="legend-child" style="justify-content:center">
+          <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>Underweight</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Healthy</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Overweight</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Obese</div>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="card">
+        <div class="card-label">Your Results</div>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-label">BMI</span>
+            <span class="metric-val" id="r-bmi">—</span>
+          </div>
+          <div class="metric hidden" id="metric-pct">
+            <span class="metric-label">Percentile</span>
+            <span class="metric-val" id="r-pct">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Category</span>
+            <span class="metric-val" id="r-cat">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Healthy Weight Range</span>
+            <span class="metric-val" id="r-range">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">BMI Prime</span>
+            <span class="metric-val" id="r-prime">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Ponderal Index</span>
+            <span class="metric-val" id="r-ponderal">—</span>
+          </div>
+        </div>
+        <div class="insight" id="insight-box"></div>
+      </div>
+
+    </div>
+
+<!-- NHS note -->
+    <div class="nhs-note" id="nhs-note">
+      <strong>Important NHS guidance:</strong> If you are of South Asian, Chinese, other Asian, Middle Eastern, Black African or African-Caribbean heritage, a BMI of 23 or above may indicate increased health risk, and 27.5 or above indicates high risk &mdash; lower than the standard thresholds. BMI is not appropriate during pregnancy. Always consult your GP for personalised medical advice.
+    </div>
+
+  </div>
+
+  <!-- ── Info Section ── -->
+  <div class="card">
+    <h2 class="card-label">About BMI &amp; Your Health</h2>
+
+    <div class="acc-item open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>&#128202; BMI Categories Explained</span>
+        <span class="acc-arrow">&#9660;</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <p style="font-weight:600; color:var(--text); margin-bottom:.6rem">Adults (20+)</p>
+        <table class="bmi-table">
+          <thead><tr><th>Category</th><th>BMI Range</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dot-inline" style="background:#1d4ed8"></span>Severe Thinness</td><td>&lt; 16</td></tr>
+            <tr><td><span class="dot-inline" style="background:#3b82f6"></span>Moderate Thinness</td><td>16 – 17</td></tr>
+            <tr><td><span class="dot-inline" style="background:#60a5fa"></span>Mild Thinness</td><td>17 – 18.5</td></tr>
+            <tr><td><span class="dot-inline" style="background:#34d399"></span>Normal / Healthy Weight</td><td>18.5 – 24.9</td></tr>
+            <tr><td><span class="dot-inline" style="background:#fbbf24"></span>Overweight</td><td>25 – 29.9</td></tr>
+            <tr><td><span class="dot-inline" style="background:#f97316"></span>Obese Class I (Moderate)</td><td>30 – 34.9</td></tr>
+            <tr><td><span class="dot-inline" style="background:#ef4444"></span>Obese Class II (Severe)</td><td>35 – 39.9</td></tr>
+            <tr><td><span class="dot-inline" style="background:#991b1b"></span>Obese Class III (Very Severe)</td><td>&ge; 40</td></tr>
+          </tbody>
+        </table>
+        <p style="font-weight:600; color:var(--text); margin-top:1.2rem; margin-bottom:.6rem">Children &amp; Teens (ages 2–19)</p>
+        <p style="margin-bottom:.6rem">For children, BMI is interpreted using age- and sex-specific <strong style="color:var(--text)">percentiles</strong> (CDC growth charts).</p>
+        <table class="bmi-table">
+          <thead><tr><th>Category</th><th>Percentile Range</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dot-inline" style="background:#60a5fa"></span>Underweight</td><td>Below 5th percentile</td></tr>
+            <tr><td><span class="dot-inline" style="background:#34d399"></span>Healthy Weight</td><td>5th to &lt; 85th percentile</td></tr>
+            <tr><td><span class="dot-inline" style="background:#fbbf24"></span>Overweight</td><td>85th to &lt; 95th percentile</td></tr>
+            <tr><td><span class="dot-inline" style="background:#ef4444"></span>Obese</td><td>&ge; 95th percentile</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>&#9888;&#65039; Health Risks: Being Overweight</span>
+        <span class="acc-arrow">&#9660;</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <p>Excess weight is associated with significantly increased risk of these conditions:</p>
+        <div class="risk-tags">
+          <span class="rtag red">Type 2 Diabetes</span>
+          <span class="rtag red">Coronary Heart Disease</span>
+          <span class="rtag red">Stroke</span>
+          <span class="rtag red">High Blood Pressure</span>
+          <span class="rtag red">Certain Cancers</span>
+          <span class="rtag orange">Sleep Apnoea</span>
+          <span class="rtag orange">Osteoarthritis</span>
+          <span class="rtag orange">Non-alcoholic Fatty Liver Disease</span>
+          <span class="rtag orange">Kidney Disease</span>
+          <span class="rtag orange">Gallbladder Disease</span>
+          <span class="rtag orange">Metabolic Syndrome</span>
+          <span class="rtag orange">Infertility</span>
+          <span class="rtag orange">Depression &amp; Anxiety</span>
+          <span class="rtag orange">Chronic Back Pain</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>&#9888;&#65039; Health Risks: Being Underweight</span>
+        <span class="acc-arrow">&#9660;</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <p>Being underweight can also carry significant health risks:</p>
+        <div class="risk-tags">
+          <span class="rtag red">Malnutrition &amp; Deficiencies</span>
+          <span class="rtag red">Osteoporosis</span>
+          <span class="rtag orange">Anaemia</span>
+          <span class="rtag orange">Weakened Immune System</span>
+          <span class="rtag orange">Fertility Problems</span>
+          <span class="rtag orange">Developmental Issues (in children)</span>
+          <span class="rtag orange">Increased Surgical Risk</span>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>&#8505;&#65039; Limitations of BMI</span>
+        <span class="acc-arrow">&#9660;</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <p>BMI is a useful population-level screening tool but has well-documented limitations:</p>
+        <ul class="lim-list">
+          <li><strong>Athletes &amp; muscular people</strong> &mdash; may show a high BMI despite having low body fat, because muscle is denser than fat.</li>
+          <li><strong>Older adults</strong> &mdash; may have a healthy BMI but carry excess fat due to age-related muscle loss (sarcopenia).</li>
+          <li><strong>Ethnicity</strong> &mdash; South Asian, East Asian, Middle Eastern, and Black African populations face higher metabolic risk at lower BMI thresholds.</li>
+          <li><strong>Children &amp; teenagers</strong> &mdash; BMI should only be interpreted using age- and gender-specific percentile charts (not adult ranges).</li>
+          <li><strong>Pregnancy</strong> &mdash; BMI is not an appropriate measure during pregnancy.</li>
+          <li><strong>Fat distribution</strong> &mdash; BMI does not account for where fat is stored. Abdominal (visceral) fat is more harmful than fat elsewhere; waist circumference is a useful complementary measure.</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>&#129514; How BMI is Calculated</span>
+        <span class="acc-arrow">&#9660;</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <p><strong>Metric formula:</strong> BMI = weight (kg) &divide; height&sup2; (m&sup2;)</p>
+        <p style="margin-top:.6rem"><strong>Imperial formula:</strong> BMI = (weight (lbs) &times; 703) &divide; height&sup2; (in&sup2;)</p>
+        <p style="margin-top:.9rem"><strong>BMI Prime</strong> is your BMI divided by 25 (the upper limit of healthy). A value of exactly 1.0 means you are at the top of the healthy range. Values below 1.0 are healthy; above 1.0 indicates overweight or obese.</p>
+        <p style="margin-top:.9rem"><strong>Ponderal Index (PI)</strong> = weight (kg) &divide; height&sup3; (m&sup3;). An alternative to BMI that accounts for body shape differences, especially for very tall or short individuals. A healthy PI is typically 11&ndash;14 kg/m&sup3;.</p>
+        <p style="margin-top:1.2rem"><strong>BMI Percentiles for Children (ages 2&ndash;19)</strong></p>
+        <p style="margin-top:.4rem">For children and teens, BMI is calculated the same way as for adults, but the result is interpreted differently. Because body composition changes with age and differs between boys and girls, a child&rsquo;s BMI is compared against age- and sex-specific reference data from the CDC growth charts.</p>
+        <p style="margin-top:.6rem">The result is expressed as a <strong>percentile</strong> &mdash; for example, a child at the 60th percentile has a BMI greater than 60% of children of the same age and sex. The CDC categories are:</p>
+        <ul class="lim-list" style="margin-top:.5rem">
+          <li><strong>Underweight:</strong> below the 5th percentile</li>
+          <li><strong>Healthy weight:</strong> 5th to below the 85th percentile</li>
+          <li><strong>Overweight:</strong> 85th to below the 95th percentile</li>
+          <li><strong>Obese:</strong> 95th percentile or above</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>&#128279; Official BMI Charts &amp; Resources</span>
+        <span class="acc-arrow">&#9660;</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">
+        <p><strong>Adult BMI</strong></p>
+        <ul class="lim-list" style="margin-top:.4rem">
+          <li><a href="https://www.nhs.uk/health-assessment-tools/calculate-your-body-mass-index/calculate-bmi-for-adults" target="_blank" rel="noopener">NHS Adult BMI Calculator</a></li>
+          <li><a href="https://www.who.int/data/gho/data/themes/topics/topic-details/GHO/body-mass-index" target="_blank" rel="noopener">WHO &mdash; Body Mass Index Classification</a></li>
+          <li><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener">WHO &mdash; Obesity &amp; Overweight Fact Sheet</a></li>
+        </ul>
+        <p style="margin-top:1rem"><strong>Children &amp; Teens (ages 2&ndash;19)</strong></p>
+        <ul class="lim-list" style="margin-top:.4rem">
+          <li><a href="https://www.cdc.gov/growthcharts/data/set1clinical/cj41c023.pdf" target="_blank" rel="noopener">CDC Boys BMI-for-Age Chart (PDF)</a></li>
+          <li><a href="https://www.cdc.gov/growthcharts/data/set2clinical/cj41c074.pdf" target="_blank" rel="noopener">CDC Girls BMI-for-Age Chart (PDF)</a></li>
+          <li><a href="https://www.cdc.gov/bmi/child-teen-calculator/index.html" target="_blank" rel="noopener">CDC Child &amp; Teen BMI Calculator</a></li>
+          <li><a href="https://www.nhs.uk/health-assessment-tools/calculate-your-body-mass-index/calculate-bmi-for-children-teenagers" target="_blank" rel="noopener">NHS Child &amp; Teen BMI Calculator</a></li>
+          <li><a href="https://www.who.int/toolkits/child-growth-standards/standards/body-mass-index-for-age-bmi-for-age" target="_blank" rel="noopener">WHO Child Growth Standards &mdash; BMI-for-Age</a></li>
+          <li><a href="https://www.who.int/tools/growth-reference-data-for-5to19-years/indicators/bmi-for-age" target="_blank" rel="noopener">WHO Growth Reference (5&ndash;19 years) &mdash; BMI-for-Age</a></li>
+        </ul>
+      </div></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>This tool is for informational purposes only and does not constitute medical advice.</p>
+  <p>Information based on WHO, NHS, and CDC guidelines. Always consult a qualified healthcare professional.</p>
+</footer>
+
+<script>
+// ── CDC BMI-for-age LMS data (ages 2–20, 6-month intervals) ──
+// Each entry: [ageMonths, L, M, S]
+const LMS_BOYS = [
+  [24,-2.37,16.86,0.0763],[30,-1.81,16.47,0.0762],[36,-1.39,16.17,0.0769],
+  [42,-1.07,15.93,0.0780],[48,-0.82,15.75,0.0794],[54,-0.62,15.60,0.0810],
+  [60,-0.46,15.49,0.0829],[66,-0.33,15.42,0.0849],[72,-0.22,15.39,0.0872],
+  [78,-0.12,15.39,0.0896],[84,-0.04,15.43,0.0921],[90,0.03,15.50,0.0947],
+  [96,0.09,15.61,0.0974],[102,0.13,15.75,0.1001],[108,0.17,15.92,0.1028],
+  [114,0.19,16.12,0.1055],[120,0.21,16.36,0.1082],[126,0.22,16.62,0.1108],
+  [132,0.22,16.92,0.1133],[138,0.22,17.24,0.1156],[144,0.21,17.58,0.1178],
+  [150,0.20,17.94,0.1198],[156,0.19,18.32,0.1217],[162,0.17,18.70,0.1233],
+  [168,0.15,19.09,0.1248],[174,0.13,19.48,0.1261],[180,0.11,19.86,0.1272],
+  [186,0.09,20.24,0.1281],[192,0.07,20.60,0.1289],[198,0.05,20.95,0.1296],
+  [204,0.03,21.28,0.1301],[210,0.01,21.59,0.1306],[216,-0.01,21.89,0.1309],
+  [222,-0.03,22.17,0.1312],[228,-0.05,22.43,0.1314],[234,-0.07,22.67,0.1316],
+  [240,-0.09,22.90,0.1317]
+];
+const LMS_GIRLS = [
+  [24,-1.50,16.40,0.0810],[30,-0.97,16.05,0.0828],[36,-0.59,15.79,0.0849],
+  [42,-0.30,15.59,0.0873],[48,-0.07,15.44,0.0899],[54,0.10,15.33,0.0927],
+  [60,0.23,15.27,0.0957],[66,0.32,15.24,0.0988],[72,0.38,15.26,0.1020],
+  [78,0.42,15.32,0.1052],[84,0.45,15.42,0.1085],[90,0.46,15.55,0.1118],
+  [96,0.46,15.71,0.1150],[102,0.46,15.91,0.1181],[108,0.44,16.14,0.1211],
+  [114,0.42,16.40,0.1239],[120,0.40,16.69,0.1266],[126,0.37,17.01,0.1291],
+  [132,0.34,17.36,0.1314],[138,0.30,17.73,0.1335],[144,0.26,18.12,0.1354],
+  [150,0.22,18.52,0.1370],[156,0.18,18.92,0.1384],[162,0.14,19.30,0.1396],
+  [168,0.10,19.66,0.1406],[174,0.07,20.00,0.1414],[180,0.03,20.30,0.1420],
+  [186,0.00,20.57,0.1425],[192,-0.03,20.81,0.1429],[198,-0.06,21.02,0.1432],
+  [204,-0.08,21.20,0.1434],[210,-0.11,21.36,0.1436],[216,-0.13,21.50,0.1437],
+  [222,-0.15,21.62,0.1438],[228,-0.17,21.73,0.1439],[234,-0.19,21.82,0.1439],
+  [240,-0.21,21.90,0.1440]
+];
+
+// Standard normal CDF (Abramowitz & Stegun)
+function normalCDF(z) {
+  if (z < -6) return 0;
+  if (z > 6) return 1;
+  const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+  const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+  const sign = z < 0 ? -1 : 1;
+  const x = Math.abs(z) / Math.sqrt(2);
+  const t = 1 / (1 + p * x);
+  const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+  return 0.5 * (1 + sign * y);
+}
+
+// Inverse normal CDF (rational approximation)
+function invNormalCDF(p) {
+  if (p <= 0) return -6;
+  if (p >= 1) return 6;
+  if (p < 0.5) return -invNormalCDF(1 - p);
+  const t = Math.sqrt(-2 * Math.log(1 - p));
+  const c0 = 2.515517, c1 = 0.802853, c2 = 0.010328;
+  const d1 = 1.432788, d2 = 0.189269, d3 = 0.001308;
+  return t - (c0 + c1 * t + c2 * t * t) / (1 + d1 * t + d2 * t * t + d3 * t * t * t);
+}
+
+// Interpolate LMS values for a given age
+function getLMS(ageMonths, sex) {
+  const data = sex === 'male' ? LMS_BOYS : LMS_GIRLS;
+  const clamped = Math.max(24, Math.min(240, ageMonths));
+  let i = 0;
+  while (i < data.length - 1 && data[i + 1][0] <= clamped) i++;
+  if (i >= data.length - 1) return { L: data[data.length - 1][1], M: data[data.length - 1][2], S: data[data.length - 1][3] };
+  const [a0, L0, M0, S0] = data[i];
+  const [a1, L1, M1, S1] = data[i + 1];
+  const frac = (clamped - a0) / (a1 - a0);
+  return { L: L0 + frac * (L1 - L0), M: M0 + frac * (M1 - M0), S: S0 + frac * (S1 - S0) };
+}
+
+// BMI percentile for a child
+function calcPercentile(bmi, ageMonths, sex) {
+  const { L, M, S } = getLMS(ageMonths, sex);
+  const z = Math.abs(L) > 0.001 ? (Math.pow(bmi / M, L) - 1) / (L * S) : Math.log(bmi / M) / S;
+  return normalCDF(z) * 100;
+}
+
+// BMI at a given percentile for a child
+function bmiAtPercentile(pct, ageMonths, sex) {
+  const { L, M, S } = getLMS(ageMonths, sex);
+  const z = invNormalCDF(pct / 100);
+  return Math.abs(L) > 0.001 ? M * Math.pow(1 + L * S * z, 1 / L) : M * Math.exp(S * z);
+}
+
+// Child BMI category based on percentile (CDC cut-points)
+function getChildCategory(pct) {
+  if (pct < 5)  return { label: 'Underweight', color: '#60a5fa' };
+  if (pct < 85) return { label: 'Healthy Weight', color: '#059669' };
+  if (pct < 95) return { label: 'Overweight', color: '#d97706' };
+  return { label: 'Obese', color: '#dc2626' };
+}
+
+// Ordinal suffix helper
+function ordinal(n) {
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+// ── Bar chart marker (adult) ──
+function updateChartMarker(bmi) {
+  const clipped = Math.min(Math.max(bmi, 10), 45);
+  const y = 8 + (45 - clipped) / 35 * 234;
+  const marker = document.getElementById('chart-marker');
+  marker.style.transform = `translateY(${y.toFixed(1)}px)`;
+  marker.style.opacity   = '1';
+  document.getElementById('m-bmi').textContent = 'BMI ' + bmi.toFixed(1);
+}
+
+// ── Bar chart marker (child percentile) ──
+function updateChildChartMarker(percentile) {
+  const clipped = Math.min(Math.max(percentile, 0), 100);
+  const y = 8 + (100 - clipped) / 100 * 234;
+  const marker = document.getElementById('chart-marker-child');
+  marker.style.transform = `translateY(${y.toFixed(1)}px)`;
+  marker.style.opacity   = '1';
+  const pctRound = Math.max(1, Math.min(99, Math.round(percentile)));
+  document.getElementById('m-pct').textContent = percentile < 1 ? '<1st' : percentile > 99 ? '>99th' : ordinal(pctRound);
+}
+
+// ── State ──
+let unit   = 'imperial';
+let gender = 'male';
+
+function setUnit(u) {
+  unit = u;
+  document.getElementById('btn-imperial').classList.toggle('active', u === 'imperial');
+  document.getElementById('btn-metric').classList.toggle('active', u === 'metric');
+  document.getElementById('height-imperial').style.display = u === 'imperial' ? 'flex' : 'none';
+  document.getElementById('inp-cm').style.display = u === 'metric' ? 'block' : 'none';
+  document.getElementById('lbl-weight').textContent = u === 'imperial' ? 'Weight (lbs)' : 'Weight (kg)';
+  document.getElementById('inp-weight').placeholder = u === 'imperial' ? 'e.g. 154' : 'e.g. 70';
+}
+
+function setGender(g) {
+  gender = g;
+  document.getElementById('btn-male').classList.toggle('active', g === 'male');
+  document.getElementById('btn-female').classList.toggle('active', g === 'female');
+}
+
+// ── BMI category helper ──
+function getCategory(bmi) {
+  if (bmi < 16)   return { label: 'Severe Thinness',   color: '#1d4ed8' };
+  if (bmi < 17)   return { label: 'Moderate Thinness', color: '#3b82f6' };
+  if (bmi < 18.5) return { label: 'Mild Thinness',     color: '#60a5fa' };
+  if (bmi < 25)   return { label: 'Normal Weight',     color: '#059669' };
+  if (bmi < 30)   return { label: 'Overweight',        color: '#d97706' };
+  if (bmi < 35)   return { label: 'Obese Class I',     color: '#ea580c' };
+  if (bmi < 40)   return { label: 'Obese Class II',    color: '#dc2626' };
+  return            { label: 'Obese Class III',         color: '#991b1b' };
+}
+
+// ── Calculate ──
+function calculate() {
+  const ageVal = parseFloat(document.getElementById('inp-age').value);
+  let heightM, weightKg;
+
+  if (unit === 'imperial') {
+    const ft  = parseFloat(document.getElementById('inp-ft').value)     || 0;
+    const ins = parseFloat(document.getElementById('inp-in').value)     || 0;
+    const totalIn = ft * 12 + ins;
+    if (totalIn <= 0) { shake('inp-ft'); return; }
+    heightM = totalIn * 0.0254;
+    const wLbs = parseFloat(document.getElementById('inp-weight').value);
+    if (!wLbs || wLbs <= 0) { shake('inp-weight'); return; }
+    weightKg = wLbs * 0.453592;
+  } else {
+    const cm = parseFloat(document.getElementById('inp-cm').value);
+    if (!cm || cm <= 0) { shake('inp-cm'); return; }
+    heightM = cm / 100;
+    const wKg = parseFloat(document.getElementById('inp-weight').value);
+    if (!wKg || wKg <= 0) { shake('inp-weight'); return; }
+    weightKg = wKg;
+  }
+
+  const bmi = weightKg / (heightM * heightM);
+  const bmiPrime = bmi / 25;
+  const pi = weightKg / (heightM ** 3);
+  const isChild = ageVal >= 2 && ageVal < 20;
+
+  let cat, rangeStr;
+  const ib = document.getElementById('insight-box');
+  let insightMsg = '', insightBg = '', insightColor = '';
+
+  if (isChild) {
+    // ── Child: use CDC percentile-based categories ──
+    const ageMonths = Math.round(ageVal * 12);
+    const percentile = calcPercentile(bmi, ageMonths, gender);
+    cat = getChildCategory(percentile);
+
+    // Healthy weight range from 5th–85th percentile BMI
+    const bmiLow  = bmiAtPercentile(5, ageMonths, gender);
+    const bmiHigh = bmiAtPercentile(85, ageMonths, gender);
+    const minKg = bmiLow * heightM * heightM;
+    const maxKg = bmiHigh * heightM * heightM;
+    if (unit === 'imperial') {
+      rangeStr = `${(minKg / 0.453592).toFixed(1)} – ${(maxKg / 0.453592).toFixed(1)} lbs`;
+    } else {
+      rangeStr = `${minKg.toFixed(1)} – ${maxKg.toFixed(1)} kg`;
+    }
+
+    // Show percentile
+    const pctRound = Math.max(1, Math.min(99, Math.round(percentile)));
+    let pctDisplay;
+    if (percentile < 1) pctDisplay = '<1st';
+    else if (percentile > 99) pctDisplay = '>99th';
+    else pctDisplay = ordinal(pctRound);
+    document.getElementById('metric-pct').classList.remove('hidden');
+    document.getElementById('r-pct').textContent = pctDisplay;
+
+    // Toggle to child chart
+    document.getElementById('chart-svg').style.display = 'none';
+    document.getElementById('chart-svg-child').style.display = '';
+    document.getElementById('legend-adult').classList.add('hidden');
+    document.getElementById('legend-child').classList.remove('hidden');
+    document.getElementById('chart-label').textContent = 'Percentile Chart';
+    updateChildChartMarker(percentile);
+
+    // Insight
+    if (percentile < 5) {
+      insightMsg = `At the ${pctDisplay} percentile, this child is classified as underweight for their age and sex. Consider discussing healthy weight gain with a doctor.`;
+      insightBg = '#eff6ff'; insightColor = '#1e40af';
+    } else if (percentile < 85) {
+      insightMsg = `At the ${pctDisplay} percentile, this child is at a healthy weight for their age and sex. Encourage a balanced diet and regular physical activity.`;
+      insightBg = '#f0fdf4'; insightColor = '#166534';
+    } else if (percentile < 95) {
+      insightMsg = `At the ${pctDisplay} percentile, this child is classified as overweight for their age and sex. Consider discussing healthy habits with a doctor.`;
+      insightBg = '#fff7ed'; insightColor = '#9a3412';
+    } else {
+      insightMsg = `At the ${pctDisplay} percentile, this child is classified as obese for their age and sex. It is recommended to consult a doctor for guidance.`;
+      insightBg = '#fff7ed'; insightColor = '#9a3412';
+    }
+  } else {
+    // ── Adult: use fixed BMI categories ──
+    cat = getCategory(bmi);
+    const minKg = 18.5 * heightM * heightM;
+    const maxKg = 24.9 * heightM * heightM;
+    if (unit === 'imperial') {
+      rangeStr = `${(minKg / 0.453592).toFixed(1)} – ${(maxKg / 0.453592).toFixed(1)} lbs`;
+    } else {
+      rangeStr = `${minKg.toFixed(1)} – ${maxKg.toFixed(1)} kg`;
+    }
+    document.getElementById('metric-pct').classList.add('hidden');
+
+    // Toggle to adult chart
+    document.getElementById('chart-svg').style.display = '';
+    document.getElementById('chart-svg-child').style.display = 'none';
+    document.getElementById('legend-adult').classList.remove('hidden');
+    document.getElementById('legend-child').classList.add('hidden');
+    document.getElementById('chart-label').textContent = 'BMI Chart';
+
+    // Insight
+    if (bmi < 18.5) {
+      const diffKg = (18.5 * heightM * heightM) - weightKg;
+      const diffLbs = diffKg / 0.453592;
+      const amount = unit === 'imperial' ? `${diffLbs.toFixed(1)} lbs` : `${diffKg.toFixed(1)} kg`;
+      insightMsg = `You are ${amount} below the healthy weight range. Consider speaking to your GP about healthy weight gain.`;
+      insightBg = '#eff6ff'; insightColor = '#1e40af';
+    } else if (bmi < 25) {
+      insightMsg = 'Great news — your BMI is within the healthy range. Maintain a balanced diet and regular physical activity.';
+      insightBg = '#f0fdf4'; insightColor = '#166534';
+    } else {
+      const diffKg = weightKg - (24.9 * heightM * heightM);
+      const diffLbs = diffKg / 0.453592;
+      const amount = unit === 'imperial' ? `${diffLbs.toFixed(1)} lbs` : `${diffKg.toFixed(1)} kg`;
+      insightMsg = `You are ${amount} above the healthy weight range. Even small reductions in weight can significantly improve health outcomes.`;
+      insightBg = '#fff7ed'; insightColor = '#9a3412';
+    }
+  }
+
+  // Update metrics
+  document.getElementById('r-bmi').textContent     = bmi.toFixed(1);
+  document.getElementById('r-cat').textContent     = cat.label;
+  document.getElementById('r-cat').style.color     = cat.color;
+  document.getElementById('r-range').textContent   = rangeStr;
+  document.getElementById('r-prime').textContent   = bmiPrime.toFixed(2);
+  document.getElementById('r-ponderal').textContent = pi.toFixed(2) + ' kg/m³';
+  ib.textContent = insightMsg;
+  ib.style.cssText = `background:${insightBg}; color:${insightColor}; border-radius:10px; border-left:3px solid ${insightColor}; padding:.8rem 1rem; margin-top:.9rem; font-size:.82rem; line-height:1.6; display:block;`;
+
+  // Chart marker (adult only — child marker updated in branch above)
+  if (!isChild) updateChartMarker(bmi);
+
+  // Show results
+  const wrap = document.getElementById('results-wrap');
+  wrap.classList.remove('hidden');
+  document.getElementById('nhs-note').style.display = 'block';
+
+  // Smooth scroll
+  setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+
+// ── Accordion ──
+function toggleAcc(head) {
+  head.parentElement.classList.toggle('open');
+}
+
+// ── Input shake on error ──
+function shake(id) {
+  const el = document.getElementById(id);
+  el.style.borderColor = '#ef4444';
+  el.style.animation = 'none';
+  el.offsetHeight; // reflow
+  el.style.animation = 'shakeX .3s ease';
+  setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 600);
+}
+
+// Allow Enter key to calculate
+document.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
+</script>
+</body>
+</html>
