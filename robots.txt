@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://get-bmi.co.uk/sitemap.xml
