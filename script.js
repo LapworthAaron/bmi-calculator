@@ -127,7 +127,7 @@ function setUnit(u) {
   document.getElementById('btn-imperial').classList.toggle('active', u === 'imperial');
   document.getElementById('btn-metric').classList.toggle('active', u === 'metric');
   document.getElementById('height-imperial').style.display = u === 'imperial' ? 'flex' : 'none';
-  document.getElementById('inp-cm').style.display = u === 'metric' ? 'block' : 'none';
+  document.getElementById('inp-cm').classList.toggle('hidden', u !== 'metric');
   document.getElementById('lbl-weight').textContent = u === 'imperial' ? 'Weight (lbs)' : 'Weight (kg)';
   document.getElementById('inp-weight').placeholder = u === 'imperial' ? 'e.g. 154' : 'e.g. 70';
 }
@@ -209,8 +209,8 @@ function calculate() {
     document.getElementById('r-pct').textContent = pctDisplay;
 
     // Toggle to child chart
-    document.getElementById('chart-svg').style.display = 'none';
-    document.getElementById('chart-svg-child').style.display = '';
+    document.getElementById('chart-svg').classList.add('hidden');
+    document.getElementById('chart-svg-child').classList.remove('hidden');
     document.getElementById('legend-adult').classList.add('hidden');
     document.getElementById('legend-child').classList.remove('hidden');
     document.getElementById('chart-label').textContent = 'Percentile Chart';
@@ -243,8 +243,8 @@ function calculate() {
     document.getElementById('metric-pct').classList.add('hidden');
 
     // Toggle to adult chart
-    document.getElementById('chart-svg').style.display = '';
-    document.getElementById('chart-svg-child').style.display = 'none';
+    document.getElementById('chart-svg').classList.remove('hidden');
+    document.getElementById('chart-svg-child').classList.add('hidden');
     document.getElementById('legend-adult').classList.remove('hidden');
     document.getElementById('legend-child').classList.add('hidden');
     document.getElementById('chart-label').textContent = 'BMI Chart';

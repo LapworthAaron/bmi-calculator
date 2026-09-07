@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0d9488">
 <meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://get-bmi.co.uk/">
 <meta property="og:title" content="BMI Calculator — Adults & Children">
@@ -29,6 +30,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
+  });
+</script>
+<script async src="https://fundingchoicesmessages.google.com/i/pub-6988631606998998?ers=1"></script>
+<script>(function() {function signalGooglefcPresent() {
+  if (!window.frames['googlefcPresent']) {
+    if (document.body) {
+      const iframe = document.createElement('iframe');
+      iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;';
+      iframe.style.display = 'none';
+      iframe.name = 'googlefcPresent';
+      document.body.appendChild(iframe);
+    } else {
+      setTimeout(signalGooglefcPresent, 0);
+    }
+  }
+}
+signalGooglefcPresent();})();</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6988631606998998"
      crossorigin="anonymous"></script>
 <script type="application/ld+json">
@@ -104,7 +131,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="style.css?v=1.01">
+<link rel="stylesheet" href="style.css?v=4e0d9e52">
 </head>
 <body>
 
@@ -131,11 +158,11 @@
 <main>
 
   <!-- ── Intro Card ── -->
-  <div class="card anim-in" style="line-height:1.7; color:var(--muted); font-size:.9rem">
+  <div class="card anim-in intro-card">
     <h2 class="card-label">What is BMI?</h2>
-    <p><strong style="color:var(--text)">Body Mass Index (BMI)</strong> is a simple numerical measure that uses your height and weight to estimate whether your body weight falls within a healthy range. It is widely used by healthcare professionals, including the NHS, WHO, and CDC, as a quick screening tool for potential weight-related health risks.</p>
-    <p style="margin-top:.7rem">While BMI does not directly measure body fat, it correlates well enough with more precise methods to serve as a useful starting point. A healthy BMI generally falls between <strong style="color:var(--text)">18.5 and 24.9</strong>. Values outside this range may indicate increased risk for conditions such as heart disease, diabetes, and other chronic illnesses.</p>
-    <p style="margin-top:.7rem">Enter your details below to calculate your BMI and learn what your result means.</p>
+    <p><strong class="hl">Body Mass Index (BMI)</strong> is a simple numerical measure that uses your height and weight to estimate whether your body weight falls within a healthy range. It is widely used by healthcare professionals, including the NHS, WHO, and CDC, as a quick screening tool for potential weight-related health risks.</p>
+    <p>While BMI does not directly measure body fat, it correlates well enough with more precise methods to serve as a useful starting point. A healthy BMI generally falls between <strong class="hl">18.5 and 24.9</strong>. Values outside this range may indicate increased risk for conditions such as heart disease, diabetes, and other chronic illnesses.</p>
+    <p>Enter your details below to calculate your BMI and learn what your result means.</p>
   </div>
 
   <!-- ── Input Card ── -->
@@ -168,7 +195,7 @@
           <input id="inp-ft" type="number" placeholder="ft" min="1" max="9">
           <input id="inp-in" type="number" placeholder="in" min="0" max="11" step="0.1">
         </div>
-        <input id="inp-cm" type="number" placeholder="cm" min="50" max="300" style="display:none">
+        <input id="inp-cm" type="number" placeholder="cm" min="50" max="300" class="hidden">
       </div>
 
       <!-- Weight -->
@@ -191,7 +218,7 @@
         <div class="card-label" id="chart-label">BMI Chart</div>
 
         <!-- Adult BMI chart -->
-        <svg id="chart-svg" class="chart-svg" viewBox="0 0 200 260" aria-hidden="true" style="overflow:hidden">
+        <svg id="chart-svg" class="chart-svg" viewBox="0 0 200 260" aria-hidden="true">
           <defs>
             <clipPath id="bar-clip">
               <rect x="50" y="8" width="52" height="234" rx="8" ry="8"/>
@@ -224,7 +251,7 @@
         </svg>
 
         <!-- Child percentile chart (hidden by default) -->
-        <svg id="chart-svg-child" class="chart-svg" viewBox="0 0 200 260" aria-hidden="true" style="overflow:hidden; display:none">
+        <svg id="chart-svg-child" class="chart-svg hidden" viewBox="0 0 200 260" aria-hidden="true">
           <defs>
             <clipPath id="bar-clip-child">
               <rect x="50" y="8" width="52" height="234" rx="8" ry="8"/>
@@ -250,7 +277,7 @@
         </svg>
 
         <!-- Adult legend -->
-        <div class="scale-legend" id="legend-adult" style="justify-content:center">
+        <div class="scale-legend" id="legend-adult">
           <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>Underweight</div>
           <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Healthy</div>
           <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Overweight</div>
@@ -258,7 +285,7 @@
           <div class="legend-item"><div class="legend-dot" style="background:#991b1b"></div>Obese III+</div>
         </div>
         <!-- Child legend (hidden by default) -->
-        <div class="scale-legend hidden" id="legend-child" style="justify-content:center">
+        <div class="scale-legend hidden" id="legend-child">
           <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>Underweight</div>
           <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Healthy</div>
           <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Overweight</div>
@@ -317,7 +344,7 @@
         <span class="acc-arrow">&#9660;</span>
       </div>
       <div class="acc-body"><div class="acc-inner">
-        <p style="font-weight:600; color:var(--text); margin-bottom:.6rem">Adults (20+)</p>
+        <p class="acc-subhead">Adults (20+)</p>
         <table class="bmi-table">
           <thead><tr><th>Category</th><th>BMI Range</th></tr></thead>
           <tbody>
@@ -331,8 +358,8 @@
             <tr><td><span class="dot-inline" style="background:#991b1b"></span>Obese Class III (Very Severe)</td><td>&ge; 40</td></tr>
           </tbody>
         </table>
-        <p style="font-weight:600; color:var(--text); margin-top:1.2rem; margin-bottom:.6rem">Children &amp; Teens (ages 2–19)</p>
-        <p style="margin-bottom:.6rem">For children, BMI is interpreted using age- and sex-specific <strong style="color:var(--text)">percentiles</strong> (CDC growth charts).</p>
+        <p class="acc-subhead mt-12">Children &amp; Teens (ages 2–19)</p>
+        <p class="mb-06">For children, BMI is interpreted using age- and sex-specific <strong class="hl">percentiles</strong> (CDC growth charts).</p>
         <table class="bmi-table">
           <thead><tr><th>Category</th><th>Percentile Range</th></tr></thead>
           <tbody>
@@ -416,13 +443,13 @@
       </div>
       <div class="acc-body"><div class="acc-inner">
         <p><strong>Metric formula:</strong> BMI = weight (kg) &divide; height&sup2; (m&sup2;)</p>
-        <p style="margin-top:.6rem"><strong>Imperial formula:</strong> BMI = (weight (lbs) &times; 703) &divide; height&sup2; (in&sup2;)</p>
-        <p style="margin-top:.9rem"><strong>BMI Prime</strong> is your BMI divided by 25 (the upper limit of healthy). A value of exactly 1.0 means you are at the top of the healthy range. Values below 1.0 are healthy; above 1.0 indicates overweight or obese.</p>
-        <p style="margin-top:.9rem"><strong>Ponderal Index (PI)</strong> = weight (kg) &divide; height&sup3; (m&sup3;). An alternative to BMI that accounts for body shape differences, especially for very tall or short individuals. A healthy PI is typically 11&ndash;14 kg/m&sup3;.</p>
-        <p style="margin-top:1.2rem"><strong>BMI Percentiles for Children (ages 2&ndash;19)</strong></p>
-        <p style="margin-top:.4rem">For children and teens, BMI is calculated the same way as for adults, but the result is interpreted differently. Because body composition changes with age and differs between boys and girls, a child&rsquo;s BMI is compared against age- and sex-specific reference data from the CDC growth charts.</p>
-        <p style="margin-top:.6rem">The result is expressed as a <strong>percentile</strong> &mdash; for example, a child at the 60th percentile has a BMI greater than 60% of children of the same age and sex. The CDC categories are:</p>
-        <ul class="lim-list" style="margin-top:.5rem">
+        <p class="mt-06"><strong>Imperial formula:</strong> BMI = (weight (lbs) &times; 703) &divide; height&sup2; (in&sup2;)</p>
+        <p class="mt-09"><strong>BMI Prime</strong> is your BMI divided by 25 (the upper limit of healthy). A value of exactly 1.0 means you are at the top of the healthy range. Values below 1.0 are healthy; above 1.0 indicates overweight or obese.</p>
+        <p class="mt-09"><strong>Ponderal Index (PI)</strong> = weight (kg) &divide; height&sup3; (m&sup3;). An alternative to BMI that accounts for body shape differences, especially for very tall or short individuals. A healthy PI is typically 11&ndash;14 kg/m&sup3;.</p>
+        <p class="mt-12"><strong>BMI Percentiles for Children (ages 2&ndash;19)</strong></p>
+        <p class="mt-04">For children and teens, BMI is calculated the same way as for adults, but the result is interpreted differently. Because body composition changes with age and differs between boys and girls, a child&rsquo;s BMI is compared against age- and sex-specific reference data from the CDC growth charts.</p>
+        <p class="mt-06">The result is expressed as a <strong>percentile</strong> &mdash; for example, a child at the 60th percentile has a BMI greater than 60% of children of the same age and sex. The CDC categories are:</p>
+        <ul class="lim-list mt-05">
           <li><strong>Underweight:</strong> below the 5th percentile</li>
           <li><strong>Healthy weight:</strong> 5th to below the 85th percentile</li>
           <li><strong>Overweight:</strong> 85th to below the 95th percentile</li>
@@ -438,13 +465,13 @@
       </div>
       <div class="acc-body"><div class="acc-inner">
         <p><strong>Adult BMI</strong></p>
-        <ul class="lim-list" style="margin-top:.4rem">
+        <ul class="lim-list mt-04">
           <li><a href="https://www.nhs.uk/health-assessment-tools/calculate-your-body-mass-index/calculate-bmi-for-adults" target="_blank" rel="noopener">NHS Adult BMI Calculator</a></li>
           <li><a href="https://www.who.int/data/gho/data/themes/topics/topic-details/GHO/body-mass-index" target="_blank" rel="noopener">WHO &mdash; Body Mass Index Classification</a></li>
           <li><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener">WHO &mdash; Obesity &amp; Overweight Fact Sheet</a></li>
         </ul>
-        <p style="margin-top:1rem"><strong>Children &amp; Teens (ages 2&ndash;19)</strong></p>
-        <ul class="lim-list" style="margin-top:.4rem">
+        <p class="mt-10"><strong>Children &amp; Teens (ages 2&ndash;19)</strong></p>
+        <ul class="lim-list mt-04">
           <li><a href="https://www.cdc.gov/growthcharts/data/set1clinical/cj41c023.pdf" target="_blank" rel="noopener">CDC Boys BMI-for-Age Chart (PDF)</a></li>
           <li><a href="https://www.cdc.gov/growthcharts/data/set2clinical/cj41c074.pdf" target="_blank" rel="noopener">CDC Girls BMI-for-Age Chart (PDF)</a></li>
           <li><a href="https://www.cdc.gov/bmi/child-teen-calculator/index.html" target="_blank" rel="noopener">CDC Child &amp; Teen BMI Calculator</a></li>
@@ -470,6 +497,6 @@
   </nav>
 </footer>
 
-<script src="script.js?v=1.01"></script>
+<script src="script.js?v=2411e606"></script>
 </body>
 </html>
